@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.mapper.UserMapper">
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT into boot_user(
+          email,
+          name,
+          password,
+          age,
+          qinggan,
+          hobby,
+          qianming,
+          birth
+        )VALUES (
+           #{email},
+          #{name},
+          #{password},
+          #{age},
+          #{qinggan},
+          #{hobby},
+          #{qianming},
+          NOW()
+        )
+    </insert>
+    <select id="queryList" parameterType="User" resultType="User">
+        SELECT id,email,name,password,
+        age,qinggan,hobby,qianming,birth,
+        state
+        FROM boot_user
+    </select>
+    <update id="updateUser" parameterType="User">
+        UPDATE boot_user
+        <set>
+            <if test="name !=null and name !='' ">
+                name=#{name},
+            </if>
+            <if test="age !=null and age !=0 ">
+                age=#{age},
+            </if>
+            <if test="hobby !=null and hobby !='' ">
+                hobby=#{hobby},
+            </if>
+            <if test="qinggan !=null and qinggan !='' ">
+                qinggan=#{qinggan},
+            </if>
+            <if test="qianming !=null and qianming !='' ">
+                qianming=#{qianming},
+            </if>
+            <if test="birth !=null and birth !='' ">
+                birth=#{birth}
+            </if>
+            WHERE id=#{id}
+        </set>
+    </update>
+</mapper>
